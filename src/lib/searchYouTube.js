@@ -3,9 +3,15 @@ var searchYouTube = (options, callback) => {
   $.ajax ({
     url: 'https://www.googleapis.com/youtube/v3/search',
     method: 'GET',
-    data: {},
+    data: {
+      key: options.key,
+      maxResults: options.max,
+      q: options.query,
+      part: 'snippet',
+      type: 'video'
+    },
     contentType: 'application/json',
-    success: callback,
+    success: (data) => callback(data.items),
     error: () => console.error('failed to get data')
   });
 };

@@ -73,7 +73,7 @@ describe('searchYouTube', function() {
     var options = {
       key: YOUTUBE_API_KEY,
       query: 'react',
-      max: 5
+      max: 5,
     };
 
     // We want this test to make a real AJAX request
