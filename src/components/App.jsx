@@ -13,8 +13,8 @@ class App extends React.Component {
     };
   }
 
-  update() {
-    this.setState({ currentVideo: exampleVideoData[0], videoList: exampleVideoData });
+  update(currentVideo) {
+    this.setState({ currentVideo: currentVideo });
 
   }
 
@@ -28,10 +28,10 @@ class App extends React.Component {
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <div><VideoPlayer video={this.state.currentVideo} /></div>
+            <div><VideoPlayer video={this.state.currentVideo} update={this.update.bind(this)}/></div>
           </div>
           <div className="col-md-5">
-            <div><VideoList videos={this.state.videoList} /></div>
+            <div><VideoList videos={this.state.videoList} update={this.update.bind(this)}/></div>
           </div>
         </div>
       </div>
