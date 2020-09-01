@@ -1,6 +1,7 @@
 import exampleVideoData from '../data/exampleVideoData.js';
 import VideoPlayer from './VideoPlayer.js';
 import VideoList from './VideoList.js';
+import YOUTUBE_API_KEY from '../config/youtube.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -13,9 +14,19 @@ class App extends React.Component {
     };
   }
 
-  update(currentVideo) {
-    this.setState({ currentVideo: currentVideo });
+  update(currentVideo, videoList) {
+    this.setState({ currentVideo: currentVideo, videoList: videoList });
 
+  }
+
+  componentDidMount() {
+    this.getVideos('cats');
+
+  }
+
+  getVideos(term) {
+    var options = {key: YOUTUBE_API_KEY, max: 5, query: term};
+    this.props.search(options, (data) => this.setState({ currentVideo: data[0], videoList: data }));
   }
 
   render() {
