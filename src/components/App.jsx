@@ -2,6 +2,7 @@ import exampleVideoData from '../data/exampleVideoData.js';
 import VideoPlayer from './VideoPlayer.js';
 import VideoList from './VideoList.js';
 import YOUTUBE_API_KEY from '../config/youtube.js';
+import Search from './Search.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -25,8 +26,13 @@ class App extends React.Component {
   }
 
   getVideos(term) {
+    var search = _.debounce(this.props.searchYouTube, 500);
     var options = {key: YOUTUBE_API_KEY, max: 5, query: term};
-    this.props.search(options, (data) => this.setState({ currentVideo: data[0], videoList: data }));
+    search(options, (data) => this.setState({ currentVideo: data[0], videoList: data }));
+  }
+
+  handleChange(e) {
+    this.getVideos(e.target.value);
   }
 
   render() {
@@ -34,7 +40,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5><em>search</em> view goes here</h5></div>
+            <div><Search handleChange={this.handleChange.bind(this)}/></div>
           </div>
         </nav>
         <div className="row">
