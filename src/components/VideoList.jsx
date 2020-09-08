@@ -1,7 +1,7 @@
 import App from './App.js';
 import VideoListEntry from './VideoListEntry.js';
 
-var VideoList = (props) => (
+var VideoList = (props = {}) => (
   <div className="video-list">
     {props.videos.map(video => <VideoListEntry video={video} update={props.update}/>)}
   </div>
